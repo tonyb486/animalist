@@ -368,7 +368,6 @@ function updateTimer() {
         endGame();
         secondsLeft = 0;
     }
-    //timer.innerText = 
     timer.setAttribute('content', Math.floor(secondsLeft/60) + ":" + Math.floor(secondsLeft%60).toString().padStart(2,0));
 }
 
