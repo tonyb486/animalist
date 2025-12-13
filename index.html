@@ -16,7 +16,7 @@ html {color-scheme: light dark;}
     --confetti-color: #337;
     --modal-background-color: #ddd;
     --urgent-color-1: #e93;
-    --urgent-color-2: #c11
+    --urgent-color-2: #c11;
   }
 }
 @media (prefers-color-scheme: dark) {
@@ -435,14 +435,14 @@ function endGame() {
     
     <p>Score: <span id=scorespan>0</span></p>
     
-    <div style=height:1.5em;>
+    <div style=height:1.5em>
         <game-timer id=timer role=timer></game-timer>
         <div id=confetti></div>
     </div>
     
     <!-- Someone please explain to me why I need this wrapper element instead of applying transform:perspective(30rem) to gameoverscreen!
          I can't just apply perspective to body bc it messes with the settings-page positioning (inconsistent in browsers; mdn notes this)-->
-    <three-dimensional style=perspective:30rem;display:block;>
+    <three-dimensional style=perspective:30rem;display:block>
         <section id=gameoverscreen>
             <h2>game over</h2>
             <button id=copybutton onclick=copyShareStringToClipboard()>share emoji results</button> <button onclick=newGame()>new game</button>
