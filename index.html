@@ -405,6 +405,7 @@ function copyShareStringToClipboard() {
 }
 
 function endGame() {
+    if (guessbox.disabled) { return; }
     shareString = generateShareString();
     copybutton.style.display = navigator.clipboard ? null : 'none';
     gameoverscreen.style.display = 'block';
