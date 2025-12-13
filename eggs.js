@@ -31,7 +31,6 @@ function valid_guess_egg_message(guess, guess_id) {
     if (guess == 'killer hornet') {
         return "Okay, sure, I'll allow it, but you should really just call it the Asian giant hornet.";
     }
-    /* if (guess.includes('skeleton')) { return 'You feel your sins crawling on your back.'; } */
     if (guess_id == 'Q15978631') { return "That's me!"; } // human
     if (guess_id == 'Q1947892') { return "Don't you love their songs?" } // cicada
 }
@@ -41,26 +40,3 @@ function egg_manipulate_li(li, guess, guess_id) {
         li.style.scale = '3 1';
     }
 }
-
-HUMAN_EMOJI = `👩‍❤️‍💋‍👩
-👩‍❤️‍👩
-🥷
-🤡
-💁
-🤷
-👩‍💻
-🫅
-🧍
-👤
-👯
-🕴️
-🧑‍🌾
-🧑‍🔬
-🤸
-🧓
-👧
-🧑‍🎓`.split('\n')
-
-HUMAN = 'Q15978631'
-MONONYMS[HUMAN] = MONONYMS[HUMAN] || [];
-MONONYMS[HUMAN].push(...HUMAN_EMOJI);
