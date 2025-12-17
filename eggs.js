@@ -16,6 +16,9 @@ function invalid_guess_egg_message(guess) {
     if (guess == 'soweli' || guess == 'waso' || guess == 'kala' || guess == 'pipi') {
         return 'musi ni li sona ala e toki pona.';
     }
+    if (guess == 'zedonk') {
+        return "The zedonk doesn't have its own English Wikipedia page; it's merely a subheading on Zebroid.";
+    }
 }
 
 function valid_guess_egg_message(guess, guess_id) {
