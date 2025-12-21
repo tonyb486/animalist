@@ -47,10 +47,10 @@ function valid_guess_egg_message(guess, guess_id) {
         return "Are you Australian?";
         // ID_TO_TITLE[LOWER_TITLE_TO_ID['dingo']] = 'Dingo (totally not a kind of dog)';
     }
+    if (guess == 'featherless biped') { MONONYMS['Q15978631'] = ['𓅾']; return "That's me?"; }
     if (guess_id == 'Q15978631') { return "That's me!"; }
     if (guess_id == 'Q1947892') { return "Don't you love their songs?"; }
     if (guess_id == 'Q134944') { return "Okay, I'll just... file that under Animalia, I guess."; }
-    if (guess == 'featherless biped') { MONONYMS['Q15978631'] = ['𓅾']; return; }
 }
 
 function equivalence_egg_message(guess, guess_id) {
