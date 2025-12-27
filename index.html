@@ -192,7 +192,7 @@ h1 { transition: color, 1s; }
 
 
     </style>
-    
+    <!--                                            <link rel=stylesheet href=evolution.css>    -->
     <script src=lower_title_to_id.js></script>
     <script src=id_to_title.js></script>
     <script src=mononyms.js></script>
@@ -238,7 +238,8 @@ function appendp(element, text) {
 }
 
 function attempt() {
-    var guess = guessbox.value.trim().toLowerCase();
+    var verbatim_guess = guessbox.value;
+    var guess = guessbox.value.trim().toLowerCase().replaceAll("-"," ");
     if (!guess) { return; }
     guesses.push(guess);
     console.log(guess);
@@ -335,10 +336,10 @@ function attempt() {
         
         // Create a li for the guess
         li = document.createElement('li');
-        if (ID_TO_TITLE[guess_id].toLowerCase() == guess) {
+        if (ID_TO_TITLE[guess_id].toLowerCase().replaceAll("-"," ") == guess) {
             li.innerText = ID_TO_TITLE[guess_id];
         } else {
-            li.innerText = guess + ' → ' + ID_TO_TITLE[guess_id];
+            li.innerText = verbatim_guess + ' → ' + ID_TO_TITLE[guess_id];
         }
         guessed_id_to_li[guess_id] = li;
         egg_manipulate_li(li, guess, guess_id);
@@ -468,6 +469,8 @@ function endGame() {
         <p><b>No overlapping terms.</b>
            For example, if you list “bear” and “polar bear”, you get no point (or time bonus) for the latter.
            But you can still get a point for a second kind of bear. Order doesn't matter.
+        <p id=visuals-hint style=display:none><b style=color:var(--urgent-color-1>Ignore the extraneous visuals.</b>
+           Focus on naming animals.
     </details> 
     
     <details id=settings-page>
@@ -492,9 +495,12 @@ function endGame() {
             <button id=copybutton onclick=copyShareStringToClipboard()>share emoji results</button> <button onclick=newGame()>new game</button>
         </section>
     </three-dimensional>
-
+    
     <output id=comment for=guessbox></output>
-    <input id=guessbox autofocus autocomplete=off onkeydown="if(event.key==`Enter`){attempt()}" oninput=uncomment()>
+    <solar-system>
+        <!--<div id=belt><div class=orbiter>🐦</div></div>-->
+        <input id=guessbox autofocus autocomplete=off onkeydown="if(event.key==`Enter`){attempt()}" oninput=uncomment()>
+    </solar-system>
     <ul id=log role=log></ul>
 </body>
 
