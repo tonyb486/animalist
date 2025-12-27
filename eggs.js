@@ -7,7 +7,7 @@ function invalid_guess_egg_message(guess) {
     if (guess == 'hint') {
         return choice(['Try thinking of ']) + choice(['bugs','farm animals','pests','dinosaurs','fish. Many fish names just end in -fish']) + '.';
     }
-    if (guess == 'dragon' || guess == 'jackalope' || guess == 'tsuchinoko') {
+    if (guess == 'dragon' || guess == 'jackalope' || guess == 'tsuchinoko' || guess=='bigfoot') {
         return 'Real animals only, please.';
     }
     if (guess == 'jumping bean') {
@@ -21,6 +21,7 @@ function invalid_guess_egg_message(guess) {
     }
     if (guess == 'xyzzy') { return 'Nothing happens.'; }
     if (guess == 'fish') { return 'Surely you can name a specific kind of fish. I believe in you!'; }
+    if (guess == 'shellfish') { return "That's more of a culinary term. Try naming a specific shellfish."; }
     if (guess == 'haggis' || guess == 'wild haggis') { return 'Left-footed or right-footed?'; }
     if (guess == 'plankton') {
         var m = "The term “plankton” actually refers to all drifting organisms lacking means to propel.";
@@ -36,6 +37,11 @@ function invalid_guess_egg_message(guess) {
             m += " No, really. It's from a latin word meaning scratch or itch. So it basically means “the itches”.";
         }
         return m;
+    }
+    if (guess=='ringworm') { return "That's a fungal infection, actually."; }
+    if (guess=='pidgeon') { return "Not actually spelled with a “d”."; }
+    if (guess=='softshell crab' || guess=='soft shell crab' || guess=='soft shelled crab' || guess=='softshelled crab') {
+        return "That's a culinary term for any crab killed while vulnerable from a recent molt.";
     }
 }
 
@@ -99,5 +105,8 @@ function ancestry_egg_message(guess, descendant_id, ancestor_id) {
 function egg_manipulate_li(li, guess, guess_id) {
     if (guess == 'longcat') {
         li.style.scale = '3 1';
+    }
+    if (guess == 'dropbear' || guess == 'drop bear') {
+        // todo animation
     }
 }
