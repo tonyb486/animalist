@@ -1,6 +1,7 @@
 // Tiny little features nobody will notice, tucked away here so as not to clutter the mains.
 
 
+
 function ancests(possible_ancestor_id, guess_id) {
     var ancestor_id = PARENT[guess_id];
     while (PARENT[ancestor_id]) {
@@ -108,6 +109,8 @@ function valid_guess_egg_message(guess, guess_id) {
     if (guess_id == 'Q15978631') { return "That's me!"; }
     if (guess_id == 'Q1947892') { return "Don't you love their songs?"; }
     if (guess_id == 'Q134944') { return "Okay, I'll just... file that under Animalia, I guess."; }
+    var h = ha‌sh(guess);
+    if (h==5898045759296372 || h==7974293014591210) { return "Thanks!"; }
 }
 
 function equivalence_egg_message(guess, guess_id) {
@@ -149,3 +152,18 @@ function egg_manipulate_li(li, guess, guess_id) {
         setTimeout(()=>{ li.style.top=0; }, 10)
     }
 }
+
+
+function ha‌sh(str) {
+  let h1 = 3735928559, h2 = 0x41c6ce57;
+  for(let i = 0, ch; i < str.length; i++) {
+    ch = str.charCodeAt(i);
+    h1 = Math.imul(h1 ^ ch, 2654435761);
+    h2 = Math.imul(h2 ^ ch, 1597334677);
+  }
+  h1  = Math.imul(h1 ^ (h1 >>> 16), 2246822507);
+  h1 ^= Math.imul(h2 ^ (h2 >>> 13), 3266489909);
+  h2  = Math.imul(h2 ^ (h2 >>> 16), 2246822507);
+  h2 ^= Math.imul(h1 ^ (h1 >>> 13), 3266489909);
+  return 4294967296 * (2097151 & h2) + (h1 >>> 0);
+};
