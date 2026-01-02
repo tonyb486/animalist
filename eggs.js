@@ -31,6 +31,9 @@ function progress_egg() {
         document.body.classList = ['water'];
         document.body.style = '';
     }
+    if (descendant_streak('Q1357', 8)) {
+        spider.style.display = 'block';
+    }
 }
 
 function invalid_guess_egg_message(guess) {

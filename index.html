@@ -204,6 +204,28 @@ h1 { transition: color, 1s; }
     }
 }
 
+#spider {
+    display: none;
+    position: absolute;
+    left: 5em;
+    top: -4em;
+    text-align: center;
+    width: min-content;
+}
+#spider::before {
+    content: "";
+    height: 100px;
+    display: inline-block;
+    border-left: 1px solid black;
+    animation-name: abseil;
+    animation-duration: 20s;
+    animation-iteration-count: 1;
+}
+@keyframes abseil {
+    0%  { height: 0; }
+    50% { height: 30vh; }
+    to  { height: 0; }
+}
 
     </style>
     <link rel=stylesheet href=evolution.css>
@@ -232,6 +254,7 @@ function newGame() {
     h1.style = '';
     gameoverscreen.style = '';
     underlay.style = '';
+    spider.style = '';
     document.body.classList = [];
     document.body.style = null;
 }
@@ -532,6 +555,9 @@ function load() {
         <input id=guessbox autofocus autocomplete=off onkeydown="if(event.key==`Enter`){attempt()}" oninput=uncomment()>
     </solar-system>
     <ul id=log role=log></ul>
+    
+    <div id=spider aria-hidden>🕷️</div>
+    
 </body>
 
 <!--that's right, buddy....
