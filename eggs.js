@@ -49,8 +49,8 @@ function invalid_guess_egg_message(guess) {
     if (guess == 'soweli' || guess == 'waso' || guess == 'kala' || guess == 'pipi') {
         return 'musi ni li sona ala e toki pona.';
     }
-    if (guess == 'zedonk') {
-        return "The zedonk doesn't have its own English Wikipedia page; it's merely a subheading on Zebroid.";
+    if (guess=='zedonk' || guess=='zorse') {
+        return "The "+guess+" doesn't have its own English Wikipedia page; it's merely a subheading on Zebroid.";
     }
     if (guess == 'xyzzy') { return 'Nothing happens.'; }
     if (guess == 'fish') { return 'Surely you can name a specific kind of fish. I believe in you!'; }
