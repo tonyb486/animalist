@@ -97,6 +97,10 @@ function invalid_guess_egg_message(guess) {
     if (guess=='dear' && !guesses.includes('deer')) { return "Wrong spelling, dear."; }
     if (guess=='cryptobug') { return "That's a brand name."; }
     if (guess=='mushroom') { return "No, fungi aren't animals."; }
+    if (guess=='amoeba') {
+        queue_trivium("<a href=https://en.wikipedia.org/wiki/Amoeba>Learn what an amoeba is</a>");
+        return "Not really a kind of animal.";
+    }
     var h = h‌ash(guess);
     if (guess == 'hint' || h==613114319434169) {
         return choice(['Try thinking of ']) + choice(['bugs','farm animals','dinosaurs','fish. Many fish names just end in -fish']) + '.';
