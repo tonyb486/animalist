@@ -185,6 +185,7 @@ h1 { transition: color, 1s; }
     padding: 1em;
     left: 50%;
     transform: translateX(-50%);
+    @media (prefers-contrast: more) { border-style: outset; }
 }
 #copybutton { position: relative; }
 
@@ -599,11 +600,11 @@ function load() {
         <label>time increment (s): <input type=number size=2 id=increment_control min=0 value=6></label>
         <button onclick="initial_time_control.value=60;increment_control.value=6">reset to defaults</button>
     </details>
-    
+   
     <!--
     Game by <a href=https://rose.systems>Vivian Rose</a>.
     Uses Wikipedia and Wikidata, plus a lot of hand-tuning. No LLMs involved.
-    <a href=https://rose.systems/contact>Contact Vivian</a> with bug reports, suggestions, or praise.
+    <a href=https://rose.systems/contact>Contact Vivian</a> with bug reports, suggestions, questions, and praise.
     -->
     
     <p>Score: <span id=scorespan>0</span></p>
