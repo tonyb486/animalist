@@ -17,6 +17,12 @@ html {color-scheme: light dark;}
     --modal-background-color: #ddd;
     --urgent-color-1: #e93;
     --urgent-color-2: #c11;
+    @media (prefers-contrast: more) {
+        --background-color: white;
+        --foreground-color: #111;
+        --modal-background-color: #eee;
+        --urgent-color-1: #c52;
+    }
   }
 }
 @media (prefers-color-scheme: dark) {
@@ -27,6 +33,12 @@ html {color-scheme: light dark;}
     --modal-background-color: #666;
     --urgent-color-1: #e93;
     --urgent-color-2: #c11;
+    @media (prefers-contrast: more) {
+        --background-color: #111;
+        --foreground-color: white;
+        --modal-background-color: #333;
+        --confetti-color: #ccf;
+    }
   }
 }
 
