@@ -101,6 +101,12 @@ function invalid_guess_egg_message(guess) {
     if (guess=='pikachu') { return "What? No. That is a Pokémon."; }
     if (guess=='cornish game hen') { return "That's a culinary term. It's just chicken."; }
     if (guess=='black panther') { return "Not really a distinct animal."; }
+    if (guess=='kudu') { return 'Lesser or greater?'; }
+    if (guess=='arctic seal') { return "Lots of seals live in the Arctic. Can you be more specific?"; }
+    if (guess=='mantaray') { return "It's two words, actually."; }
+    if (guess=='carrier pigeon' || guess=='homing pigeon' || guess=='war pigeon' || guess=='mail pigeon') {
+        return "That's more of an occupation, isn't it?";
+    }
     if (guess=='amoeba') {
         queue_trivium("<a href=https://en.wikipedia.org/wiki/Amoeba>Learn what an amoeba is</a>");
         return "Not really a kind of animal.";
