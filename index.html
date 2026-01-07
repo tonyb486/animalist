@@ -190,7 +190,10 @@ h1 { transition: color, 1s; }
     transform: translateX(-50%);
     @media (prefers-contrast: more) { border-style: outset; }
 }
-#copybutton { cursor: copy; }
+#copybutton {
+    cursor: copy;
+    position: relative; /* for confetti */
+}
 #about {
     margin-top: 1em;
     & summary {
@@ -302,6 +305,7 @@ snail-race {
     <script src=parent.js></script>
     <script src=eggs.js></script>
     <script src=pics.js></script>
+    <script src=thanks.js></script>
     <script>
 
 function newGame() {
@@ -566,9 +570,17 @@ function copyShareStringToClipboard() {
         .catch(()=>{ summonConfetto('error >_<"', copybutton); });
 }
 
+var thankIndex;
+function cycleThank() {
+    thankIndex ||= score;
+    thankIndex = (thankIndex + 1) % THANKS.length;
+    thank.innerHTML = '(thanks to ' + THANKS[thankIndex] + ')';
+}
+
 function endGame() {
     if (guessbox.disabled) { return; }
     queue_final_trivia();
+    cycleThank();
     shareString = generateShareString();
     copybutton.style.display = navigator.clipboard ? null : 'none';
     gameoverscreen.style.display = 'block';
@@ -629,10 +641,11 @@ function load() {
             <h2>game over</h2>
             <section id=trivia></section>
             <button id=copybutton onclick=copyShareStringToClipboard()>share emoji results</button> <button onclick=newGame()>try again</button>
-            <details id=about><summary>about this game</summary>
+            <details id=about onToggle=if(event.newState.at(5)){cycleThank();}><summary>about this game</summary>
                 <p>By <a href=https://rose.systems>Vivian Rose</a>.
                 <p>Uses Wikipedia and Wikidata, plus a lot of hand-tuning. No LLMs involved.
                 <p><a href=https://rose.systems/contact>Contact me</a> with bug reports, questions, suggestions, and praise.
+                <p id=thank style=font-size:small></p>
             </details>
         </section>
     </three-dimensional>
