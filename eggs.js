@@ -210,6 +210,7 @@ function egg_manipulate_li(li, guess, guess_id) {
         li.style.transition='top 1s ease-in';
         setTimeout(()=>{ li.style.top=0; }, 10)
     }
+    if (guess == 'sidewinder') { li.style.rotate = '-90deg'; }
 }
 
 localStorage.triviaHashes ||= '';
