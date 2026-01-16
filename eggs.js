@@ -47,6 +47,10 @@ function progress_egg() {
     }
 }
 
+function swoop() {
+    kettle.classList.add('swooping');
+}
+
 function invalid_guess_egg_message(guess) {
     if (guess == 'help') {
         rules.open = true; return ' ';
@@ -74,6 +78,8 @@ function invalid_guess_egg_message(guess) {
     if (guess=='zooplankton' || guess=='zooplankter' || guess=='plankter') {
         return 'Way too vague.';
     }
+    if (guess=='phytoplankton') { return "“phyto” means “plant”."; }
+    if (guess=='lichen') { return "That's a fungus/algae combination, not an animal."; }
     if (guess=='scabie' || guess=='scabies') {
         queue_trivium("The word “scabies” actually comes from the Latin «<a href=//en.wiktionary.org/wiki/scabo#Latin>scabō</a>», a verb meaning to scratch or scrape. So while it's easy to assume that “scabies” refers to the parasites, but it basically just means “the itches”.");
         return "Nice try, but the animal that causes scabies isn't called “a scabie”."
@@ -113,8 +119,13 @@ function invalid_guess_egg_message(guess) {
     if (guess=='kudu') { return 'Lesser or greater?'; }
     if (guess=='arctic seal') { return "Lots of seals live in the Arctic. Can you be more specific?"; }
     if (guess=='mantaray') { return "It's two words, actually."; }
-    if (guess=='carrier pigeon' || guess=='homing pigeon' || guess=='war pigeon' || guess=='mail pigeon') {
+    if (guess=='carrier pigeon' || guess=='homing pigeon' || guess=='war pigeon' || guess=='mail pigeon'
+        || guess=='cleaner shrimp') {
         return "That's more of an occupation, isn't it?";
+    }
+    if (guess=='doe') {
+        //todo trivium
+        return "That can actually refer to a lot of different animals.";
     }
     if (guess=='amoeba') {
         queue_trivium("<a href=https://en.wikipedia.org/wiki/Amoeba>Learn what an amoeba is</a>");
@@ -124,6 +135,7 @@ function invalid_guess_egg_message(guess) {
     if (guess == 'hint' || h==613114319434169) {
         return choice(['Try thinking of ']) + choice(['bugs','farm animals','dinosaurs','fish. Many fish names just end in -fish']) + '.';
     }
+    if (h==6386118624072996) { return "You can't fool me."; }
 }
 
 function valid_guess_egg_message(guess, guess_id) {
