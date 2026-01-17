@@ -105,6 +105,10 @@ function invalid_guess_egg_message(guess) {
         return "Not quite how it's spelled.";
     }
     if (guess=='dear' && !guesses.includes('deer')) { return "Wrong spelling, dear."; }
+    if (guess=='muscle' || guess=='mussle' && guessed_ids.includes(lower_title_to_id.mussel)) {
+        queue_trivium("The modern spelling “mussel”, distinguished from “muscle”, has been recorded since the 1600s, but wasn't fully established until the 1870s.");
+        return "Not quite how it's spelled.";
+    }
     if (guess=='caterpiller') {
         // TODO review this one
         queue_trivium("“caterpillar” is spelled with “-pillar”, not “-piller”, but the etymology derives from the Middle English «<a href=https://en.wiktionary.org/wiki/piller#Etymology_1>piller</a>», meaning to plunder. Presumably because they eat so much.");
@@ -139,6 +143,7 @@ function invalid_guess_egg_message(guess) {
     if (h==6386118624072996) { return "You can't fool me."; }
 }
 
+awoo = 'awo';
 function valid_guess_egg_message(guess, guess_id) {
     if (guesses.length <= 7 && (guess_id==LOWER_TITLE_TO_ID.human || guess_id==LOWER_TITLE_TO_ID.crow)) { bteq(); }
     if (guess == 'unicorn') {
@@ -173,6 +178,10 @@ function valid_guess_egg_message(guess, guess_id) {
     if (guess_id == 'Q15978631') { return "That's me!"; }
     if (guess_id == 'Q1947892') { return "Don't you love their songs?"; }
     if (guess_id == 'Q134944') { return "Okay, I'll just... file that under Animalia, I guess."; }
+    if (ancests(LOWER_TITLE_TO_ID.wolf, guess_id) || (ancests(LOWER_TITLE_TO_ID.canina, guess_id) && guess.endsWith(" wolf"))) {
+        awoo += 'o';
+        return awoo + '!';
+    } else { awoo='awo'; }
     var h = h‌ash(guess);
     if (h==5898045759296372 || h==7974293014591210 || h==2284322406280126 || h==268876411488211 || h==8279950606841495 || h==6858254965870390 || h==7434973200667552) {
         return "Thanks!";
