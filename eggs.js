@@ -123,6 +123,8 @@ function invalid_guess_egg_message(guess) {
     if (guess=='black panther') { return "Not really a distinct animal."; }
     if (guess=='kudu') { return 'Lesser or greater?'; }
     if (guess=='arctic seal') { return "Lots of seals live in the Arctic. Can you be more specific?"; }
+    if (guess=='yellow butterfly') { return "Lots of butterflies are yellow. Can you be more specific?"; }
+    if (guess=='green snake') { return "So many snakes are green. Which one?"; }
     if (guess=='mantaray') { return "It's two words, actually."; }
     if (guess=='carrier pigeon' || guess=='homing pigeon' || guess=='war pigeon' || guess=='mail pigeon'
         || guess=='cleaner shrimp') {
@@ -170,6 +172,7 @@ function valid_guess_egg_message(guess, guess_id) {
     if (guess=='ca' && !guesses.includes('cat')) {
         return "You probably meant cat instead of Ca (genus of moths) but whatever.";
     }
+    if (guess=='pug') { return "I generously assume you mean the little brown moths called pugs."; }
     if (guess=='house spider') {
         queue_trivium("The term “house spider” can refer to <a href=https://en.wikipedia.org/wiki/House_spider>multiple kinds of spider</a>, but it has <a href=extras/praiſe_of_the_houſe_Spider>a single entry in a 1600s bestiary that goes on and on about its wondrous beauty.</a>.");
     }
@@ -188,6 +191,15 @@ function valid_guess_egg_message(guess, guess_id) {
     }
 }
 
+const DOGS_IS_THE_SAME = [
+    'Dogs are dogs.',
+    "That's still just a dog.",
+    "Dogs are the same animal!",
+    "They aren't that different!",
+    "They're all the same!!",
+    "Stop listing dogs!!"
+]
+dog_index = 0;
 function equivalence_egg_message(guess, guess_id) {
     if (guess_id == 'Q10856' && (guess=='dove' || guess=='pigeon') && guesses.includes('dove') && guesses.includes('pigeon')) {
         return "Pigeons and doves are basically the same. They share a Wikipedia page.";
@@ -196,7 +208,9 @@ function equivalence_egg_message(guess, guess_id) {
         queue_trivium_once("You might argue this game should interpret “bison” as <a href=https://en.wikipedia.org/wiki/Bison><i>Bison bison</i>, aka the American buffalo</a>, and interpret “buffalo” as <a href=https://en.wikipedia.org/wiki/True_buffalo><i>true</i> buffalo</a>, but since the American (and <a href=https://en.wikipedia.org/wiki/European_bison>European</a>) bison are colloquially known as “buffalo”, I think it's fair to treat them as interchangable terms. So anyone wanting points for buffalo has to name a specific one, like the African buffalo or dwarf buffalo or water buffalo.");
         return "Sorry, but “buffalo” and “bison” have been interchanged for centuries.";
     }
-    // todo dog breed snark
+    if (guess_id==LOWER_TITLE_TO_ID.dog && (!guesses.slice(0,-1).includes(guess) || !DOGS_IS_THE_SAME[0])) {
+        return DOGS_IS_THE_SAME[dog_index++] || "Fuck you!!";
+    }
 }
 
 function ancestry_egg_message(guess, descendant_id, ancestor_id) {
