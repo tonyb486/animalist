@@ -17,18 +17,30 @@ body {
 
 body.sky {
     background-color: lightskyblue;
+    background-image: url(media/tile_clouds.svg);
     @media (prefers-color-scheme: dark) {
         background-color: midnightblue;
         background-blend-mode: soft-light;
     }
+    background-size: 2e3px;
+    animation-name:            background-north-2e3px, background-east-2e3px;
+    animation-duration:        180s,                   calc(pi * 130s);
+    animation-iteration-count: infinite,               infinite;
+    animation-timing-function: linear,                 linear;
+    animation-direction:       linear,                 linear;
 }
 body.water {
     background-color: lightseagreen;
-    background-image: url(media/water.svg);
+    background-image: url(media/tile_water.svg);
     @media (prefers-color-scheme: dark) {
         background-color: navy;
-        
     }
+    background-size: 8e3px;
+    animation-name:            background-north-8e3px, background-east-8e3px;
+    animation-duration:        80s,                    calc(pi * 40s);
+    animation-iteration-count: infinite,               infinite;
+    animation-timing-function: linear,                 ease-in-out;
+    animation-direction:       normal,                 alternate;
 }
 
 
@@ -50,10 +62,12 @@ solar-system {
     height: calc((var(--initial-guessbox-height) + 0.4em ) * (var(--guessbox-yscale)));
     vvborder-style:solid;
     transition: all 2s ease-out;
+    Voverflow-x: clip;
+    margin-left: 0px; margin-right: 0px;
 }
 
 #belt {
-    Vdisplay: none;
+    display: none;
     transform-style: preserve-3d;
     animation-name: tilt;
     animation-duration: 12s;
@@ -88,12 +102,12 @@ html.extraneous #belt {
     position: relative;
     & #predator {
         position: absolute;
-        right: 0px;
         top: -200%;
+        right: -50px;
     }
 }
 #kettle {
-    animation-name: swoop;
+    Vanimation-name: swoop;
     animation-duration: 8s;
     animation-timing-function: linear;
     animation-fill-mode: forwards;
@@ -101,23 +115,39 @@ html.extraneous #belt {
     left: 0px;
     Vborder-style: dotted;
     text-align: left;
+    & #predator { width: 100px; }
+    &.swooping { animation-name: swoop; }
+    &:not(.swooping) #predator { display: none; }
+    #prey { width: 40px; }
+    img {
+        position: absolute;
+        max-width: unset;
+    }
+    
 }
 
 @keyframes swoop {
     from {
         width: 2000px;
-        height: 10em;
+        height: 1000px;
         left: 0px;
     }
     50% {
         width: 1rem;
-        height: .3em;
+        height: 35px; top: 0em;
         left: 0px;
+    }
+    99% {
+        width: 1rem;
+        height: 35px; top: -1000px;
+        left: -2000px;
+        opacity: 1;
     }
     to {
         width: 1rem;
-        height: .3em;
+        height: 35px; top: -1000px;
         left: -2000px;
+        opacity: 0;
     }
 }
 

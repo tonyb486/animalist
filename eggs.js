@@ -25,13 +25,9 @@ function descendant_streak(ancestor, length) {
 function progress_egg() {
     if (descendant_streak(major_groups.Bird, 16) && !document.body.classList.contains('sky')) {
         document.body.classList = ['sky']
-        document.body.style.backgroundImage = 'url(media/clouds.svg?'+Date.now()+')'; // restart animation
-        visualshint.style.display = 'block';
     }
     if (descendant_streak('Q25371', 8)) {
         document.body.classList = ['water'];
-        document.body.style = '';
-        visualshint.style.display = 'block';
     }
     if (descendant_streak('Q1357', 8)) {
         spider.style.display = 'block';
@@ -45,7 +41,10 @@ function progress_egg() {
         snail.style.display = 'block';
         visualshint.style.display = 'block';
     }
-    if (descendant_streak(LOWER_TITLE_TO_ID.crow, 7)) { bteq(); }
+    if (descendant_streak(LOWER_TITLE_TO_ID.crow, 7)) {
+        bteq();
+        visualshint.style.display = 'block';
+    }
 }
 
 function swoop() {

@@ -41,6 +41,12 @@ html {color-scheme: light dark;}
     }
   }
 }
+@media (prefers-contrast: more) {
+    #guessbox {
+        border-style: solid;
+        border-color: var(--foreground-color);
+    }
+}
 
 img { max-width: 100%; }
 
@@ -73,6 +79,9 @@ h1 { transition: color, 1s; }
     display: none;
     animation-name: textappear;
     animation-duration: 1s;
+}
+body.sky #visualshint, body.water #visualshint {
+    display: block;
 }
 @keyframes textappear { from { font-size: 0 } }
 
@@ -229,16 +238,36 @@ body:has(#log li) #settings-page { /* hide settings during game */
 #underlay {
     opacity: 0;
     position: fixed; left: 0; top: 0; height: 100vh; width: 100vw;
-    background-size: cover;
     transition-property:        background-color, opacity,  filter;
     transition-duration:        4s,               3s,       2s;
     transition-timing-function: ease-in-out,      ease-out, ease-out;
     z-index: -1;
-    & { background-image: url("media/ether.svg"); }
+    & { background-image: url("media/tile_ether.svg?"); }
     @media (prefers-color-scheme: dark) {
         background-color: black;
         body.sky & { mix-blend-mode: color; }
     }
+    background-size: 2e3px;
+    animation-name:            background-north-2e3px, background-east-2e3px;
+    animation-duration:        100s,                   calc(pi * e * 10s);
+    animation-iteration-count: infinite,               infinite;
+    animation-timing-function: linear,                 linear;
+}
+@keyframes background-north-2e3px {
+    0% { background-position-y: 2e3px; }
+    to { background-position-y: 0px; }
+}
+@keyframes background-east-2e3px {
+    0% { background-position-x: 0px; }
+    to { background-position-x: 2e3px; }
+}
+@keyframes background-north-8e3px {
+    0% { background-position-y: 8e3px; }
+    to { background-position-y: 0px; }
+}
+@keyframes background-east-8e3px {
+    0% { background-position-x: 8e3px; }
+    to { background-position-x: 2e3px; }
 }
 
 #spider {
