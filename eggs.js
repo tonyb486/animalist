@@ -191,7 +191,7 @@ function valid_guess_egg_message(guess, guess_id) {
 }
 
 const DOGS_IS_THE_SAME = [
-    'Dogs are dogs.',
+    "Dogs are dogs.",
     "That's still just a dog.",
     "Dogs are the same animal!",
     "They aren't that different!",
@@ -208,6 +208,7 @@ function equivalence_egg_message(guess, guess_id) {
         return "Sorry, but “buffalo” and “bison” have been interchanged for centuries.";
     }
     if (guess_id==LOWER_TITLE_TO_ID.dog && (!guesses.slice(0,-1).includes(guess) || !DOGS_IS_THE_SAME[0])) {
+        if (dog_index > 3) { h1.innerText = "list animals OTHER THAN DOGS"; }
         return DOGS_IS_THE_SAME[dog_index++] || "Fuck you!!";
     }
 }
