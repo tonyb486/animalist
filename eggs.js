@@ -116,6 +116,7 @@ function invalid_guess_egg_message(guess) {
 
     if (guess=='cryptobug') { return "That's a brand name."; }
     if (guess=='mushroom') { return "No, fungi aren't animals."; }
+    if (guess=='bacteria') { return "Bacteria aren't animals."; }
     if (guess=='cheeta') { return "You're missing a letter."; }
     if (guess=='pikachu') { return "What? No. That is a Pokémon."; }
     if (guess=='cornish game hen') { return "That's a culinary term. It's just chicken."; }
