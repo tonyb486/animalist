@@ -127,6 +127,7 @@ function invalid_guess_egg_message(guess) {
     if (guess=='bacteria') { return "Bacteria aren't animals."; }
     if (guess=='lichen') { return "That's a fungus/algae combination, not an animal."; }
     if (guess=='mushroom') { return "No, fungi aren't animals."; }
+    if (guess=='slime mold') { return "Slime molds aren't animals."; }
     if (guess=='protozoa' || guess=='protozoan') { return "Not all protozoans are animals."; }
     if (guess=='ringworm') { return "That's a fungal infection, actually."; }
     if (guess=='scabie' || guess=='scabies') {
@@ -143,6 +144,7 @@ function invalid_guess_egg_message(guess) {
     if (guess=='jabberjay') { return "Come on, you know that one's fictional."; }
     if (guess=='pikachu') { return "What? No. That is a Pokémon."; }
     if (guess=='black panther') { return "Not really a distinct animal."; }
+    if (guess=='white elephant') { return "That's not really a distinct kind of elephant."; }
     if (guess=='kudu') { return 'Lesser or greater?'; }
     if (guess=='arctic seal') { return "Lots of seals live in the Arctic. Can you be more specific?"; }
     if (guess=='yellow butterfly') { return "Lots of butterflies are yellow. Can you be more specific?"; }
