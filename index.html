@@ -1,0 +1,305 @@
+<style type="text/css">
+    @font-face {
+        font-family: "Lato";
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src:
+            local("Lato Regular"),
+            local("Lato-Regular"),
+            url(/fonts/lato-latin.woff2) format("woff2");
+        unicode-range:
+            U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+            U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212,
+            U+2215, U+FEFF, U+FFFD;
+    }
+
+    body {
+        font-family: "Lato", sans-serif;
+        margin: 0;
+        padding: 0;
+        background: #6aa7f2;
+        text-align: center;
+    }
+
+    #title {
+        font-size: 3em;
+        font-weight: bold;
+        padding: 0.5em 0;
+    }
+    #output {
+        margin: 0;
+        padding: 0;
+    }
+
+    @keyframes swoop {
+        0% {
+            max-height: 0;
+            transform: scaleX(0);
+            opacity: 0;
+        }
+        100% {
+            max-height: 1em;
+            transform: scaleX(1);
+            opacity: 1;
+        }
+    }
+
+    .guess,
+    .bar {
+        width: 100%;
+        padding: 10px 0px;
+        margin: 5px 0px;
+        font-size: 1.5em;
+
+        opacity: 1;
+        animation-name: swoop;
+        animation-iteration-count: 1;
+        animation-timing-function: ease-in;
+        animation-duration: 0.2s;
+    }
+
+    .incorrect {
+        color: white;
+        background: #f26a7a;
+    }
+    .correct {
+        color: black;
+        background: #9ef26a;
+    }
+
+    .note {
+        opacity: 0.5;
+    }
+
+    .repeat,
+    #score {
+        color: black;
+        background: #f2e46a;
+    }
+
+    #start {
+        cursor: pointer;
+    }
+
+    #output div:nth-child(2) {
+        opacity: 0.9;
+    }
+    #output div:nth-child(3) {
+        opacity: 0.8;
+    }
+    #output div:nth-child(4) {
+        opacity: 0.7;
+    }
+    #output div:nth-child(5) {
+        opacity: 0.6;
+    }
+    #output div:nth-child(6) {
+        opacity: 0.5;
+    }
+    #output div:nth-child(7) {
+        opacity: 0.4;
+    }
+    #output div:nth-child(8) {
+        opacity: 0.3;
+    }
+    #output div:nth-child(9) {
+        opacity: 0.2;
+    }
+    #output div:nth-child(n + 9) {
+        opacity: 0.1;
+    }
+</style>
+
+<script type="text/javascript" src="animals.js"></script>
+<script type="text/javascript">
+    var guessIds = [];
+    const ding = new Audio("ding.mp3");
+    const dong = new Audio("dong.mp3");
+
+    window.onload = async () => {
+        if (!("webkitSpeechRecognition" in window)) {
+            alert(
+                "Your browser doesn't support SpeechRecognition - try Chrome.",
+            );
+        }
+        const startButton = document.querySelector("#start");
+        startButton.onclick = startGame;
+
+        /*
+
+        if (!("available" in webkitSpeechRecognition)) {
+            startButton.onclick = startGame;
+            return;
+        }
+
+        const options = { langs: ["en-US"], processLocally: true };
+        const availability = await webkitSpeechRecognition.available(options);
+        if (availability == "downloadable") {
+            startButton.innerText = "DOWNLOAD LANGUAGE PACK";
+            startButton.onclick = async () => {
+                startButton.onclick = () => {};
+                startButton.innerText = "DOWNLOADING LANGUAGE PACK....";
+                await webkitSpeechRecognition.install(options);
+                startButton.innerText = "START GAME";
+                startButton.onclick = startGame;
+            };
+        } else {
+            startButton.onclick = startGame;
+        }
+
+        */
+    };
+
+    function fmtMSS(s) {
+        return (s - (s %= 60)) / 60 + (9 < s ? ":" : ":0") + s;
+    }
+
+    function startGame() {
+        const startButton = document.querySelector("#start");
+        const scoreBar = document.querySelector("#score");
+
+        startButton.style.display = "none";
+        scoreBar.style.display = "block";
+
+        const scoreBox = document.querySelector("#scoreCnt");
+        const timeBox = document.querySelector("#timeLeft");
+
+        var endTime = 0;
+
+        const recognition = new webkitSpeechRecognition();
+        recognition.continuous = true;
+        recognition.lang = "en-US";
+        recognition.interimResults = true;
+        recognition.maxAlternatives = 1;
+        recognition.processLocally = false;
+        //recognition.processLocally = true;
+
+        recognition.start();
+        recognition.onerror = (e) => console.log(e);
+        recognition.onaudioend = (e) => {
+            if (e.error) {
+                addLine("Timeout!", "incorrect");
+                endTime = Date.now();
+            }
+        };
+
+        var pResults = [];
+
+        recognition.onresult = (e) => {
+            if (endTime == 0) {
+                endTime = Date.now() + 60000;
+                const timer = setInterval(() => {
+                    var timeLeft = endTime - Date.now();
+                    if (timeLeft < 0) {
+                        timeBox.innerText = "GAME OVER";
+                        recognition.stop();
+                        clearInterval(timer);
+                    } else {
+                        timeBox.innerText = fmtMSS(Math.floor(timeLeft / 1000));
+                    }
+                }, 500);
+            }
+
+            var result = e.results[e.resultIndex];
+            var guessText = result[0].transcript;
+            console.log(
+                result,
+                result.isFinal,
+                result[0].transcript,
+                result[0].confidence,
+            );
+
+            // skip really low confidence results
+            if (!result.isFinal && result[0].confidence < 0.01) return;
+
+            // treat anything marked final as a full guess unless we've already
+            // had a success on this particular segment. full guesses can get
+            // failure dongs.
+            var fullGuess = result.isFinal && !pResults.includes(e.resultIndex);
+
+            if (doGuess(guessText, fullGuess)) {
+                pResults.push(e.resultIndex);
+                scoreBox.innerText = guessIds.length;
+                endTime += 5000;
+                timeBox.innerText = fmtMSS(
+                    Math.floor((endTime - Date.now()) / 1000),
+                );
+            }
+        };
+    }
+
+    function addLine(value, className, noteText) {
+        const output = document.querySelector("#output");
+        var div = document.createElement("div");
+
+        if (noteText) {
+            div.innerHTML = `<div class='guess ${className}'><span class='note'>${noteText} → </span>${value}</div>`;
+        } else {
+            div.innerHTML = `<div class='guess ${className}'>${value}</div>`;
+        }
+
+        output.prepend(div);
+    }
+
+    function doGuess(guessText, isFinal) {
+        guess = guessText
+            .trim()
+            .toLowerCase()
+            .replaceAll("-", " ")
+            .replaceAll("’", "'")
+            .replaceAll(/ +/g, " ")
+            .replace(/^(the|a|uh)\s+/i, "");
+
+        const animalId = LOWER_TITLE_TO_ID[guess];
+
+        // incorrect guess
+        if (!animalId) {
+            if (isFinal) {
+                addLine(guessText, "incorrect");
+                dong.play();
+            }
+            return false;
+        }
+
+        var exactName = guess == ID_TO_TITLE[animalId].trim().toLowerCase();
+
+        // repeat guess
+        if (guessIds.includes(animalId)) {
+            if (isFinal) {
+                addLine(
+                    ID_TO_TITLE[animalId],
+                    "repeat",
+                    exactName ? false : guessText,
+                );
+                dong.play();
+            }
+            return false;
+        }
+
+        // correct new guess
+        ding.play();
+        guessIds.push(animalId);
+        addLine(
+            ID_TO_TITLE[animalId],
+            "correct",
+            exactName ? false : guessText,
+        );
+        return true;
+    }
+</script>
+<body>
+    <div id="title">SAY ANIMALS</div>
+    <div id="start" class="bar correct">PRESS TO START GAME</div>
+    <div id="score" class="bar" style="display: none">
+        <b>SCORE:&nbsp;</b><span id="scoreCnt">0</span> &nbsp; <b>TIME:&nbsp;</b
+        ><span id="timeLeft">1:00</span>
+    </div>
+    <div id="output"></div>
+    <br />
+    <small>
+        Based on
+        <a href="https://rose.systems/animalist/">animalist,</a> sounds from
+        <a href="https://freesound.org/">freesound.</a>
+    </small>
+</body>
