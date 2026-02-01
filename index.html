@@ -1,3 +1,5 @@
+<!doctype html>
+
 <style type="text/css">
     @font-face {
         font-family: "Lato";
@@ -22,10 +24,33 @@
         text-align: center;
     }
 
+    main {
+        display: block;
+        background: white;
+        border-radius: 5em 5em 0em 0em;
+        margin: 3em;
+        overflow: scroll;
+        height: 85vh;
+
+        mask-image: linear-gradient(
+            to bottom,
+            rgba(0, 0, 0, 1) 30%,
+            transparent 100%
+        );
+    }
+
+    @keyframes title {
+        100% {
+            transform: scale(1.2);
+            text-shadow: 0px 0px 5px #6aa7f2;
+        }
+    }
+
     #title {
         font-size: 3em;
         font-weight: bold;
         padding: 0.5em 0;
+        animation: title 2s ease-in-out 0s infinite alternate both;
     }
     #output {
         margin: 0;
@@ -82,32 +107,17 @@
         cursor: pointer;
     }
 
-    #output div:nth-child(2) {
-        opacity: 0.9;
+    small {
+        display: block;
+        position: absolute;
+        bottom: 1em;
+        width: 100%;
     }
-    #output div:nth-child(3) {
-        opacity: 0.8;
-    }
-    #output div:nth-child(4) {
-        opacity: 0.7;
-    }
-    #output div:nth-child(5) {
-        opacity: 0.6;
-    }
-    #output div:nth-child(6) {
-        opacity: 0.5;
-    }
-    #output div:nth-child(7) {
-        opacity: 0.4;
-    }
-    #output div:nth-child(8) {
-        opacity: 0.3;
-    }
-    #output div:nth-child(9) {
-        opacity: 0.2;
-    }
-    #output div:nth-child(n + 9) {
-        opacity: 0.1;
+
+    small,
+    small a {
+        color: #555;
+        font-size: 0.5em;
     }
 </style>
 
@@ -125,30 +135,6 @@
         }
         const startButton = document.querySelector("#start");
         startButton.onclick = startGame;
-
-        /*
-
-        if (!("available" in webkitSpeechRecognition)) {
-            startButton.onclick = startGame;
-            return;
-        }
-
-        const options = { langs: ["en-US"], processLocally: true };
-        const availability = await webkitSpeechRecognition.available(options);
-        if (availability == "downloadable") {
-            startButton.innerText = "DOWNLOAD LANGUAGE PACK";
-            startButton.onclick = async () => {
-                startButton.onclick = () => {};
-                startButton.innerText = "DOWNLOADING LANGUAGE PACK....";
-                await webkitSpeechRecognition.install(options);
-                startButton.innerText = "START GAME";
-                startButton.onclick = startGame;
-            };
-        } else {
-            startButton.onclick = startGame;
-        }
-
-        */
     };
 
     function fmtMSS(s) {
@@ -289,17 +275,19 @@
     }
 </script>
 <body>
-    <div id="title">SAY ANIMALS</div>
-    <div id="start" class="bar correct">PRESS TO START GAME</div>
-    <div id="score" class="bar" style="display: none">
-        <b>SCORE:&nbsp;</b><span id="scoreCnt">0</span> &nbsp; <b>TIME:&nbsp;</b
-        ><span id="timeLeft">1:00</span>
-    </div>
-    <div id="output"></div>
-    <br />
+    <main>
+        <div id="title">SAY ANIMALS</div>
+        <div id="start" class="bar correct">PRESS TO START GAME</div>
+        <div id="score" class="bar" style="display: none">
+            <b>SCORE:&nbsp;</b><span id="scoreCnt">0</span> &nbsp;
+            <b>TIME:&nbsp;</b><span id="timeLeft">1:00</span>
+        </div>
+        <div id="output"></div>
+        <div style="height: 10em">&nbsp;</div>
+    </main>
     <small>
-        Based on
-        <a href="https://rose.systems/animalist/">animalist,</a> sounds from
-        <a href="https://freesound.org/">freesound.</a>
+        made by <a href="https://tonybox.net/">tonyb486</a>; based on
+        <a href="https://rose.systems/animalist/">animalist</a>; sounds from
+        <a href="https://freesound.org/">freesound</a>.
     </small>
 </body>
